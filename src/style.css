@@ -1,0 +1,266 @@
+:root {
+  /* Minecraft主题色彩方案 - 浅色模式 */
+  --primary-color: #7EC03B;
+  --primary-dark: #6AA84F;
+  --secondary-color: #F1C232;
+  --accent-color: #3D9140;
+  --bg-color: #F5F5F5;
+  --bg-dark: #E8E8E8;
+  --text-color: #333333;
+  --text-light: #666666;
+  --border-color: #DDDDDD;
+  --success-color: #4CAF50;
+  --warning-color: #FF9800;
+  --qq-color: #12B7F5;
+  --card-bg: white;
+  --header-bg: white;
+  --footer-bg: var(--bg-dark);
+  --hero-bg: var(--bg-color);
+  --grid-color: rgba(0, 0, 0, 0.03);
+  
+  /* 字体设置 */
+  font-family: 'Microsoft YaHei', 'PingFang SC', 'Hiragino Sans GB', sans-serif;
+  line-height: 1.6;
+  font-weight: 400;
+  color: var(--text-color);
+  background-color: var(--bg-color);
+  
+  /* 优化渲染 */
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* 深色模式 */
+[data-theme="dark"] {
+  --primary-color: #7EC03B;
+  --primary-dark: #6AA84F;
+  --secondary-color: #F1C232;
+  --accent-color: #3D9140;
+  --bg-color: #1A1A1A;
+  --bg-dark: #2A2A2A;
+  --text-color: #FFFFFF;
+  --text-light: #AAAAAA;
+  --border-color: #444444;
+  --success-color: #4CAF50;
+  --warning-color: #FF9800;
+  --qq-color: #12B7F5;
+  --card-bg: rgba(42, 42, 42, 0.8);
+  --header-bg: rgba(26, 26, 26, 0.8);
+  --footer-bg: var(--bg-dark);
+  --hero-bg: var(--bg-color);
+  --grid-color: rgba(255, 255, 255, 0.05);
+}
+
+/* 背景网格效果 */
+body {
+  background-image: 
+    linear-gradient(var(--grid-color) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-color) 1px, transparent 1px);
+  background-size: 20px 20px;
+  background-position: 0 0;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* 磨玻璃效果 */
+.glassmorphism {
+  background: var(--card-bg);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+}
+
+/* 深色模式下的磨玻璃效果 */
+[data-theme="dark"] .glassmorphism {
+  background: rgba(42, 42, 42, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+#app {
+  width: 100%;
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+  text-align: left;
+}
+
+/* 链接样式 */
+a {
+  color: var(--primary-color);
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+a:hover {
+  color: var(--primary-dark);
+  text-decoration: underline;
+}
+
+/* 标题样式 */
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 600;
+  line-height: 1.2;
+  margin-bottom: 1rem;
+  color: var(--text-color);
+}
+
+h1 {
+  font-size: 2.5rem;
+}
+
+h2 {
+  font-size: 2rem;
+}
+
+h3 {
+  font-size: 1.5rem;
+}
+
+/* 段落样式 */
+p {
+  margin-bottom: 1rem;
+  color: var(--text-light);
+}
+
+/* 按钮样式 */
+button {
+  border-radius: 4px;
+  border: none;
+  padding: 0.6em 1.2em;
+  font-size: 1em;
+  font-weight: 500;
+  font-family: inherit;
+  background-color: var(--primary-color);
+  color: white;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+button:hover {
+  background-color: var(--primary-dark);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+  transform: translateY(-1px);
+}
+
+button:focus,
+button:focus-visible {
+  outline: 2px solid var(--primary-dark);
+  outline-offset: 2px;
+}
+
+/* QQ按钮特殊样式 */
+.qq-button {
+  background-color: var(--qq-color);
+}
+
+.qq-button:hover {
+  background-color: #0CA1E4;
+}
+
+/* 卡片样式 */
+.card {
+  background-color: white;
+  border-radius: 8px;
+  padding: 2rem;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s ease;
+  margin-bottom: 2rem;
+}
+
+.card:hover {
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.12);
+  transform: translateY(-2px);
+}
+
+/* 容器样式 */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+  h1 {
+    font-size: 2rem;
+  }
+  
+  h2 {
+    font-size: 1.5rem;
+  }
+  
+  h3 {
+    font-size: 1.25rem;
+  }
+  
+  .container {
+    padding: 0 1rem;
+  }
+  
+  .card {
+    padding: 1.5rem;
+  }
+}
+
+/* 动画效果 */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fade-in {
+  animation: fadeIn 0.6s ease forwards;
+}
+
+/* 平滑滚动 */
+html {
+  scroll-behavior: smooth;
+}
+
+/* 清除浮动 */
+.clearfix::after {
+  content: '';
+  display: table;
+  clear: both;
+}
+
+/* 列表样式 */
+ul, ol {
+  margin-bottom: 1rem;
+  padding-left: 1.5rem;
+  color: var(--text-light);
+}
+
+li {
+  margin-bottom: 0.5rem;
+}
+
+/* 图片样式 */
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
