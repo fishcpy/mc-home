@@ -81,7 +81,7 @@ onUnmounted(() => {
       <div class="container">
         <nav class="navbar">
           <div class="navbar-brand">
-            <img src="https://file.fis.ink/img/fishcpy/logo.png" alt="fishcpy logo" class="logo" />
+            <img src="https://file.fis.ink/img/fishcpy/logo_c.png" alt="fishcpy logo" class="logo" />
             <span class="site-name">fishcpy mc</span>
           </div>
           <div class="navbar-actions">
