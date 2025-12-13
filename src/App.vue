@@ -4,6 +4,8 @@ import { ref, onMounted, onUnmounted } from 'vue';
 import announcementsData from './data/announcements.json';
 // 导入特色玩法数据
 import featuresData from './data/features.json';
+// 导入照片数据
+import photosData from './data/photos.json';
 
 // 深色模式切换逻辑
 const isDarkMode = ref(false);
@@ -16,6 +18,8 @@ const showScrollTop = ref(false);
 const announcements = ref(announcementsData);
 // 特色玩法数据
 const features = ref(featuresData);
+// 照片数据
+const photos = ref(photosData);
 
 // 初始化主题
 const initTheme = () => {
@@ -89,6 +93,7 @@ onUnmounted(() => {
               <li class="nav-item"><a href="#" class="nav-link">首页</a></li>
               <li class="nav-item"><a href="#about" class="nav-link">关于我们</a></li>
               <li class="nav-item"><a href="#features" class="nav-link">特色玩法</a></li>
+              <li class="nav-item"><a href="#photos" class="nav-link">服务器照片</a></li>
               <li class="nav-item"><a href="#announcements" class="nav-link">最新公告</a></li>
               <li class="nav-item"><a href="#contact" class="nav-link">联系我们</a></li>
             </ul>
@@ -137,6 +142,30 @@ onUnmounted(() => {
             >
               <h3>{{ feature.title }}</h3>
               <p>{{ feature.content }}</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 服务器照片展示 -->
+      <section id="photos" class="photos">
+        <div class="container">
+          <h2>服务器照片</h2>
+          <div class="photos-grid">
+            <div 
+              v-for="(photo, index) in photos" 
+              :key="photo.id" 
+              class="card photo-card fade-in"
+              :style="{ animationDelay: `${0.1 * (index + 1)}s` }"
+            >
+              <div class="photo-image-container">
+                <img :src="photo.imageUrl" :alt="photo.title" class="photo-image" />
+              </div>
+              <div class="photo-content">
+                <h3>{{ photo.title }}</h3>
+                <p class="photo-date">{{ photo.date }}</p>
+                <p>{{ photo.description }}</p>
+              </div>
             </div>
           </div>
         </div>
@@ -469,6 +498,65 @@ section h2 {
   height: 100%;
   display: flex;
   flex-direction: column;
+}
+
+/* 服务器照片样式 */
+.photos-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: 2rem;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.photo-card {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.photo-image-container {
+  width: 100%;
+  height: 250px;
+  overflow: hidden;
+  margin-bottom: 1rem;
+  border-radius: 4px;
+}
+
+.photo-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.photo-card:hover .photo-image {
+  transform: scale(1.05);
+}
+
+.photo-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.photo-date {
+  font-size: 0.9rem;
+  color: var(--text-light);
+  margin-bottom: 0.5rem;
+  font-style: italic;
+}
+
+/* 响应式照片布局 */
+@media (max-width: 768px) {
+  .photos-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .photo-image-container {
+    height: 200px;
+  }
 }
 
 /* 公告样式 */
