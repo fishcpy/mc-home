@@ -14,6 +14,9 @@ const isDarkMode = ref(false);
 const isScrolled = ref(false);
 const showScrollTop = ref(false);
 
+// 移动端菜单控制
+const isMenuOpen = ref(false);
+
 // 公告数据
 const announcements = ref(announcementsData);
 // 特色玩法数据
@@ -89,19 +92,23 @@ onUnmounted(() => {
             <span class="site-name">fishcpy mc</span>
           </div>
           <div class="navbar-actions">
-            <ul class="navbar-nav">
-              <li class="nav-item"><a href="#" class="nav-link">首页</a></li>
-              <li class="nav-item"><a href="#about" class="nav-link">关于我们</a></li>
-              <li class="nav-item"><a href="#features" class="nav-link">特色玩法</a></li>
-              <li class="nav-item"><a href="#photos" class="nav-link">服务器照片</a></li>
-              <li class="nav-item"><a href="#announcements" class="nav-link">最新公告</a></li>
-              <li class="nav-item"><a href="#contact" class="nav-link">联系我们</a></li>
-            </ul>
-            <!-- 深色模式切换按钮 -->
-            <button class="theme-toggle" @click="toggleTheme" aria-label="切换主题">
-              {{ isDarkMode ? '🌞' : '🌙' }}
-            </button>
-          </div>
+          <!-- 汉堡菜单按钮 -->
+          <button class="menu-toggle" @click="isMenuOpen = !isMenuOpen" aria-label="切换菜单">
+            <span class="menu-icon"></span>
+          </button>
+          <ul class="navbar-nav" :class="{ 'menu-open': isMenuOpen }">
+            <li class="nav-item"><a href="#" class="nav-link" @click="isMenuOpen = false">首页</a></li>
+            <li class="nav-item"><a href="#about" class="nav-link" @click="isMenuOpen = false">关于我们</a></li>
+            <li class="nav-item"><a href="#features" class="nav-link" @click="isMenuOpen = false">特色玩法</a></li>
+            <li class="nav-item"><a href="#photos" class="nav-link" @click="isMenuOpen = false">服务器照片</a></li>
+            <li class="nav-item"><a href="#announcements" class="nav-link" @click="isMenuOpen = false">最新公告</a></li>
+            <li class="nav-item"><a href="#contact" class="nav-link" @click="isMenuOpen = false">联系我们</a></li>
+          </ul>
+          <!-- 深色模式切换按钮 -->
+          <button class="theme-toggle" @click="toggleTheme" aria-label="切换主题">
+            {{ isDarkMode ? '🌞' : '🌙' }}
+          </button>
+        </div>
         </nav>
       </div>
     </header>
@@ -313,6 +320,66 @@ onUnmounted(() => {
 .theme-toggle:hover {
   background-color: var(--border-color);
   transform: rotate(180deg);
+}
+
+/* 汉堡菜单按钮样式 */
+.menu-toggle {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  display: none;
+  flex-direction: column;
+  justify-content: space-around;
+  width: 2rem;
+  height: 2rem;
+  padding: 0;
+  z-index: 1100;
+}
+
+.menu-icon {
+  display: block;
+  width: 2rem;
+  height: 0.25rem;
+  background-color: var(--text-color);
+  border-radius: 1rem;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.menu-icon::before,
+.menu-icon::after {
+  content: '';
+  display: block;
+  width: 2rem;
+  height: 0.25rem;
+  background-color: var(--text-color);
+  border-radius: 1rem;
+  transition: all 0.3s ease;
+  position: absolute;
+  left: 0;
+}
+
+.menu-icon::before {
+  top: -0.75rem;
+}
+
+.menu-icon::after {
+  top: 0.75rem;
+}
+
+/* 汉堡菜单打开状态 */
+.menu-toggle[aria-expanded="true"] .menu-icon {
+  background-color: transparent;
+}
+
+.menu-toggle[aria-expanded="true"] .menu-icon::before {
+  transform: rotate(45deg);
+  top: 0;
+}
+
+.menu-toggle[aria-expanded="true"] .menu-icon::after {
+  transform: rotate(-45deg);
+  top: 0;
 }
 
 /* 英雄区域样式 - 全屏大标题 */
@@ -613,21 +680,55 @@ section h2 {
 /* 响应式设计 */
 @media (max-width: 768px) {
   .navbar {
-    flex-direction: column;
+    flex-direction: row;
+    justify-content: space-between;
     gap: 1rem;
   }
   
   .navbar-actions {
-    flex-direction: column;
+    flex-direction: row;
     gap: 1rem;
-    width: 100%;
-    justify-content: center;
+    width: auto;
+    justify-content: flex-end;
   }
   
+  /* 显示汉堡菜单按钮 */
+  .menu-toggle {
+    display: flex;
+  }
+  
+  /* 隐藏桌面端导航菜单 */
   .navbar-nav {
-    flex-wrap: wrap;
+    position: fixed;
+    top: 6rem;
+    left: 0;
+    width: 100%;
+    background-color: var(--header-bg);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    flex-direction: column;
+    align-items: center;
     justify-content: center;
-    gap: 1rem;
+    padding: 2rem 0;
+    gap: 1.5rem;
+    box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+    transform: translateY(-150%);
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    z-index: 1050;
+  }
+  
+  /* 导航菜单打开状态 */
+  .navbar-nav.menu-open {
+    transform: translateY(0);
+    opacity: 1;
+    visibility: visible;
+  }
+  
+  .nav-link {
+    font-size: 1.2rem;
+    padding: 1rem 0;
   }
   
   .hero-title {

@@ -12,8 +12,8 @@
   --success-color: #4CAF50;
   --warning-color: #FF9800;
   --qq-color: #12B7F5;
-  --card-bg: white;
-  --header-bg: white;
+  --card-bg: rgba(255, 255, 255, 0.8);
+  --header-bg: rgba(255, 255, 255, 0.8);
   --footer-bg: var(--bg-dark);
   --hero-bg: var(--bg-color);
   --grid-color: rgba(0, 0, 0, 0.03);
